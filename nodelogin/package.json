@@ -1,0 +1,19 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tadhgin/books-DB.git"
+  },
+  "author": "Tadhgin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tadhgin/books-DB/issues"
+  },
+  "homepage": "https://github.com/Tadhgin/books-DB#readme"
+}

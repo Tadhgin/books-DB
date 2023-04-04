@@ -27,12 +27,13 @@ const sess = {
 
 app.use(session(sess));
 
-//const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({});
 
-//app.engine('handlebars', hbs.engine);
-// Set up Handlebars.js as the template engine
-app.engine('handlebars', exphbs());
+app.engine('handlebars', hbs.engine);
+//Set up Handlebars.js as the template engine
+app.engine('handlebars', exphbs.ExpressHandlebars, exphbs.create({}).engine);
 app.set('view engine', 'handlebars');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
