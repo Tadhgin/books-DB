@@ -1,16 +1,46 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(
-'my_bookshelf_db', 
-'user_name', 
-'password', 
-{
-  host: 'localhost',
-  dialect: 'mysql'
-}
-);
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+//const helpers = require('./utils/helpers');
 
-sequelize.authenticate().then(() => {
-   console.log('Connection has been established successfully.');
-}).catch((error) => {
-   console.error('Unable to connect to the database: ', error);
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const sequelize = require('./config/config');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
+app.use(session(sess));
+
+//const hbs = exphbs.create({ helpers });
+
+//app.engine('handlebars', hbs.engine);
+// Set up Handlebars.js as the template engine
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+//app.use(require('./controllers/'));
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
+  sequelize.sync({ force: false });
 });
