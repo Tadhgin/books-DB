@@ -40,6 +40,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use(require('./controllers/'));
+app.get('/api/users', (req, res) => {
+  // Return all users
+});
+
+app.get('/api/users/:id', (req, res) => {
+  // Return a specific user by ID
+});
+
+app.post('/api/users', (req, res) => {
+  // Add a new user
+});
+
+app.put('/api/users/:id', (req, res) => {
+  // Update a user by ID
+});
+
+app.delete('/api/users/:id', (req, res) => {
+  // Delete a user by ID
+});
+
+app.get("/", (req, res) => {
+
+})
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
