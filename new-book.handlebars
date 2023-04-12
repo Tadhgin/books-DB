@@ -1,0 +1,76 @@
+<div class="container">
+    <hr>
+    <h1>Create New Book</h1>
+    <hr>
+
+    <form action="http://localhost:3000/book" method="POST">
+
+        <div class="form-group">
+            <label for="ISBN">ISBN</label>
+            <input class="form-control" name="ISBN" id="ISBN">
+        </div>
+        
+        <div class="form-group">
+            <label for="Author">Author</label>
+            <input class="form-control" name="Author" id="Author">
+        </div>
+
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input class="form-control" name="title" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="Publish_Date">Publish Date</label>
+            <input class="form-control" name="Publish_Date" id="Publish_Date">
+        </div>
+
+        <div class="form-group">
+            <label for="numOfPages">numOfPages</label>
+            <input class="form-control" name="numOfPages" id="numOfPagesn">
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Convert to Handlebars template -->
+<script id="new-book-template" type="text/x-handlebars-template">
+    <div class="container">
+        <hr>
+        <h1>Create New Book</h1>
+        <hr>
+
+        <form action="http://localhost:3000/book" method="POST">
+
+            <div class="form-group">
+                <label for="ISBN">ISBN</label>
+                <input class="form-control" name="ISBN" id="ISBN">
+            </div>
+            
+            <div class="form-group">
+                <label for="Author">Author</label>
+                <input class="form-control" name="Author" id="Author">
+            </div>
+
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input class="form-control" name="title" id="title">
+            </div>
+
+            <div class="form-group">
+                <label for="Publish_Date">Publish Date</label>
+                <input class="form-control" name="Publish_Date" id="Publish_Date">
+            </div>
+
+            <div class="form-group">
+                <label for="numOfPages">numOfPages</label>
+                <input class="form-control" name="numOfPages" id="numOfPagesn">
+            </div>
+
+            <!--Other fields-->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</script>

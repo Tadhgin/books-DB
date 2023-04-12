@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <title>Login</title>
+    
+    <!-- Include Font Awesome library to add icons to form -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    
+    <!-- Include custom stylesheet -->
+    <link href="/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <!-- Define header section -->
+    <header>
+      {{!-- Define a partial for the header --}}
+      {{> header}}
+    </header>
+    
+    <!-- Define main content section -->
+    <main>
+      <div class="login">
+        <h1>Login</h1>
+        <form action="/auth" method="post">
+          <label for="username">
+            <!-- Font Awesome icon for username -->
+            <i class="fas fa-user"></i>
+          </label>
+          <input type="text" name="username" placeholder="Username" id="username" required>
+          <label for="password">
+            <!-- Font Awesome icon for password -->
+            <i class="fas fa-lock"></i>
+          </label>
+          <input type="password" name="password" placeholder="Password" id="password" required>
+          <input type="submit" value="Login">
+        </form>
+      </div>
+    </main>
+    
+    <!-- Define footer section -->
+    <footer>
+      {{!-- Define a partial for the footer --}}
+      {{> footer}}
+    </footer>
+  </body>
+</html>

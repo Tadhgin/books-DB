@@ -2,13 +2,11 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
-//const helpers = require('./utils/helpers');
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const sequelize = require("./config/config");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-const sequelize = require("./config/config");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const sess = {
   secret: "Super secret secret",
@@ -25,42 +23,18 @@ const sess = {
   }),
 };
 
-app.use(session(sess));
-
 const hbs = exphbs.create({});
-
 app.engine("handlebars", hbs.engine);
-//Set up Handlebars.js as the template engine
-// app.engine('handlebars', exphbs.ExpressHandlebars, exphbs.create({}).engine);
 app.set("view engine", "handlebars");
 
+app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-//app.use(require('./controllers/'));
-// app.get('/api/users', (req, res) => {
-//   // Return all users
-// });
-
-// app.get('/api/users/:id', (req, res) => {
-//   // Return a specific user by ID
-// });
-
-// app.post('/api/users', (req, res) => {
-//   // Add a new user
-// });
-
-// app.put('/api/users/:id', (req, res) => {
-//   // Update a user by ID
-// });
-
-// app.delete('/api/users/:id', (req, res) => {
-//   // Delete a user by ID
-// });
-
 app.get("/", (req, res) => {
-  res.render("home");
+  const data = { title: "My Bookshelf" };
+  res.render("home", data);
 });
 
 app.get("/login", (req, res) => {
