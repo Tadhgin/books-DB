@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Books Database</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+
+    <!-- Define header section -->
+    <header>
+      {{!-- Include a partial for the header --}}
+      {{> header}}
+      <h1>Books Database</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/books">Books</a></li>
+          <li><a href="/authors">Authors</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Welcome to the Books Database</h2>
+      <p>This is a simple web app that allows you to view and manage books and authors in a database.</p>
+      <ul>
+        <li><a href="/books">View all books</a></li>
+        <li><a href="/books/add">Add a new book</a></li>
+        <li><a href="/authors">View all authors</a></li>
+        <li><a href="/authors/add">Add a new author</a></li>
+      </ul>
+    </main>
+
+    <!-- Define footer section -->
+    <footer>
+      {{!-- Include a partial for the footer --}}
+      {{> footer}}
+    </footer>
+
+  </body>
+</html>

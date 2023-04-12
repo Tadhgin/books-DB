@@ -1,43 +1,43 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
-// Where we will keep books
-let books = [];
+const books = [];
 
+// Middleware
 app.use(cors());
-
-// Configuring body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/book', (req, res) => {
-    const book = req.body;
-
-    // Output the book to the console for debugging
-    console.log(book);
-    books.push(book);
-
-    res.send('Book is added to the database');
+// Routes
+app.post('/books', (req, res) => {
+  const book = req.body;
+  books.push(book);
+  console.log(book);
+  res.status(201).send('Book added to the database');
 });
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
+app.put('/books/:isbn', (req, res) => {
+  const isbn = req.params.isbn;
+  const newBook = req.body;
 
-app.post('/book/:isbn', (req, res) => {
-    // Reading isbn from the URL
-    const isbn = req.params.isbn;
-    const newBook = req.body;
+  // Find the index of the book with the given ISBN
+  const index = books.findIndex(book => book.isbn === isbn);
 
-    // Remove item from the books array
-    for (let i = 0; i < books.length; i++) {
-        let book = books[i]
-        if (book.isbn === isbn) {
-            books[i] = newBook;
-        }
-    }
+  if (index === -1) {
+    return res.status(404).send('Book not found');
+  }
 
-    res.send('Book is edited');
+  // Replace the book at the given index with the new book
+  books[index] = newBook;
+  console.log(newBook);
+
+  res.status(200).send('Book edited');
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });
