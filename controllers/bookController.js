@@ -1,89 +1,81 @@
-const { Book } = require('../public/js/models');
+const { Book } = require('../models');
 
-const getBooks = async (req, res) => {
-  try {
-    const books = await Book.findAll();
-    res.json(books);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+const bookController = {
+  getAllBooks: async (req, res) => {
+    try {
+      const books = await Book.findAll();
+      res.status(200).json(books);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
 
-const createBook = async (req, res) => {
-  try {
-    const book = await Book.create({
-      title: 'To Kill a Mockingbird',
-      author: 'Harper Lee',
-      ISBN: '9780446310789'
-    });
-    res.json(book);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-const findAllBooks = async (req, res) => {
-  try {
-    const books = await Book.findAll();
-    res.json(books);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-const findBookByISBN = async (req, res) => {
-  try {
-    const book = await Book.findOne({
-      where: {
-        ISBN: '9780446310789'
+  getBookById: async (req, res) => {
+    try {
+      const book = await Book.findByPk(req.params.id);
+      if (!book) {
+        res.status(404).json({ message: 'Book not found' });
+      } else {
+        res.status(200).json(book);
       }
-    });
-    res.json(book);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
 
-const updateBook = async (req, res) => {
-  try {
-    const book = await Book.findOne({
-      where: {
-        ISBN: '9780446310789'
+  createBook: async (req, res) => {
+    const { title, author, genre, year, available } = req.body;
+    try {
+      const book = await Book.create({
+        title,
+        author,
+        genre,
+        year,
+        available
+      });
+      res.status(201).json(book);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  updateBookById: async (req, res) => {
+    const { title, author, genre, year, available } = req.body;
+    try {
+      const book = await Book.findByPk(req.params.id);
+      if (!book) {
+        res.status(404).json({ message: 'Book not found' });
+      } else {
+        await book.update({
+          title,
+          author,
+          genre,
+          year,
+          available
+        });
+        res.status(200).json(book);
       }
-    });
-    book.title = 'Go Set a Watchman';
-    await book.save();
-    res.json(book);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
 
-const deleteBook = async (req, res) => {
-  try {
-    const book = await Book.findOne({
-      where: {
-        ISBN: '9780446310789'
+  deleteBookById: async (req, res) => {
+    try {
+      const book = await Book.findByPk(req.params.id);
+      if (!book) {
+        res.status(404).json({ message: 'Book not found' });
+      } else {
+        await book.destroy();
+        res.status(204).end();
       }
-    });
-    await book.destroy();
-    res.json({ message: 'Book deleted' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   }
-};
-
-module.exports = {
-  getBooks,
-  createBook,
-  findAllBooks,
-  findBookByISBN,
-  updateBook,
-  deleteBook
 };
