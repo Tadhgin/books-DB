@@ -1,81 +1,63 @@
-/* Reset default browser styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Style the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style the table headers */
+th {
+  background-color: #f1f1f1;
+  text-align: left;
+  padding: 8px;
+}
+
+/* Style the table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style the table data */
+td {
+  padding: 8px;
+}
+
+/* Style the book cards */
+.book-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the book card data */
+.book-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.book-author {
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.book-pages, .book-release, .book-isbn {
+  margin-bottom: 5px;
+}
+
+/* Style the media queries */
+@media screen and (min-width: 768px) {
+  .book-card {
+    width: calc(50% - 10px);
   }
-  
-  /* Apply basic styles to the page */
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    background-color: #f5f5f5;
+}
+@media screen and (min-width: 992px) {
+  .book-card {
+    width: calc(33.33% - 10px);
   }
-  
-  header, main, footer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  header {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  h1, h2, h3 {
-    font-weight: normal;
-  }
-  
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav li {
-    display: inline-block;
-    margin-right: 20px;
-  }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  main {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  h2 {
-    margin-top: 20px;
-    font-size: 24px;
-  }
-  
-  ul {
-    margin: 20px;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  a {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-  }
+}

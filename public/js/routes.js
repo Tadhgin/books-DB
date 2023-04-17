@@ -1,9 +1,21 @@
 const express = require('express');
-const app = express();
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
+const { User } = require('./models');
 
-// Read user data from the users.json file
-let users = JSON.parse(fs.readFileSync('./users/users.json'));
+const app = express();
+
+// Set up session middleware
+app.use(session({
+  secret: 'supersecretkey',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // set to true if using HTTPS
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
+}));
 
 // Middleware to handle JSON parsing errors
 app.use((err, req, res, next) => {
@@ -13,6 +25,53 @@ app.use((err, req, res, next) => {
     next();
   }
 });
+
+// Middleware to require authentication for certain routes
+const requireLogin = (req, res, next) => {
+  if (!req.session.userId) {
+    return res.redirect('/login');
+  }
+
+  next();
+};
+
+// Serve static files from the public directory
+app.use(express.static('public'));
+
+// Parse request bodies as JSON
+app.use(express.json());
+
+// Render the login page
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+// Authenticate the user and set the session ID
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ where: { email } });
+
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    return res.status(401).render('login', { error: 'Invalid email or password' });
+  }
+
+  req.session.userId = user.id;
+  res.redirect('/');
+});
+
+// Log the user out and destroy the session
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+// Render the dashboard page
+app.get('/', requireLogin, (req, res) => {
+  res.render('dashboard');
+});
+
+// Read user data from the users.json file
+let users = JSON.parse(fs.readFileSync('./users/users.json'));
 
 // Return all users
 app.get('/api/users', (req, res) => {
