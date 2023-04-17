@@ -7,17 +7,17 @@ async function registerUser(name, email, password) {
       if (!name || !email || !password) {
         throw new Error('Name, email, and password are required');
       }
-  
+
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
-  
+
       // Create a new user object
       const newUser = await User.create({
         name,
         email,
         password: hashedPassword,
       });
-  
+
       // Return the new user object
       return newUser;
     } catch (err) {

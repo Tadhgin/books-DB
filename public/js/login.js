@@ -42,7 +42,7 @@ app.post('/auth', function(request, response) {
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
-			}			
+			}
 			response.end();
 		});
 	} else {

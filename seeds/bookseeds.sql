@@ -1,0 +1,22 @@
+INSERT INTO books (title, author, num_pages, year_release, isbn, format)
+VALUES
+    ("To Kill a Mockingbird", "Harper Lee", 281, 1960, "9780446310789", "ebook"),
+    ("1984", "George Orwell", 328, 1949, "9780451524935", "ebook"),
+    ("The Catcher in the Rye", "J.D. Salinger", 234, 1951, "9780316769488", "ebook"),
+    ("The Great Gatsby", "F. Scott Fitzgerald", 180, 1925, "9780743273565", "ebook"),
+    ("Pride and Prejudice", "Jane Austen", 279, 1813, "9780486284736", "ebook"),
+    ("To the Lighthouse", "Virginia Woolf", 209, 1927, "9780156907392", "ebook"),
+    ("One Hundred Years of Solitude", "Gabriel García Márquez", 417, 1967, "9780060883287", "ebook"),
+    ("The Hobbit", "J.R.R. Tolkien", 310, 1937, "9780547928227", "ebook"),
+    ("The Lord of the Rings", "J.R.R. Tolkien", 1178, 1954, "9780618640157", "ebook"),
+    ("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 193, 1979, "9780345391803", "ebook"),
+    ("Slaughterhouse-Five", "Kurt Vonnegut", 215, 1969, "9780385333849", "ebook"),
+    ("The Sun Also Rises", "Ernest Hemingway", 251, 1926, "9780684800714", "ebook"),
+    ("Brave New World", "Aldous Huxley", 311, 1932, "9780060850524", "ebook"),
+    ("The Adventures of Huckleberry Finn", "Mark Twain", 366, 1884, "9780486280615", "ebook"),
+    ("The Grapes of Wrath", "John Steinbeck", 464, 1939, "9780143039433", "ebook"),
+    ("Beloved", "Toni Morrison", 321, 1987, "9781400033416", "ebook"),
+    ("The Color Purple", "Alice Walker", 295, 1982, "9780156031820", "ebook"),
+    ("Their Eyes Were Watching God", "Zora Neale Hurston", 219, 1937, "9780061120060", "ebook"),
+    ("The Sound and the Fury", "William Faulkner", 326, 1929, "9780679732242", "ebook"),
+    ("The Picture of Dorian Gray", "Oscar Wilde", 254, 1890, "9780140620305", "ebook");
