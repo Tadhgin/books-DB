@@ -1,21 +1,15 @@
-<h1>Books</h1>
-<ul>
-  {{#each books}}
-  <li><a href="/books/{{id}}">{{title}}</a>, by {{author}}</li>
-  {{/each}}
-</ul>
-<a href="/books/new">Add a new book</a>
-
-show.handlebars: This template displays the details of a single book.
-
-<h1>{{title}}</h1>
-<p>Author: {{author}}</p>
-<p>Number of pages: {{num_pages}}</p>
-<p>Year of release: {{year_release}}</p>
-<p>ISBN: {{isbn}}</p>
-<p>Format: {{format}}</p>
-
-new.handlebars: This template displays a form for adding a new book.
-
-
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Books Database</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+  </head>
+  <body>
+    <h1>Books Database</h1>
+    <p>Welcome to the Books Database! You can use the links below to view and add books.</p>
+    <ul>
+      <li><a href="/books">View Books</a></li>
+      <li><a href="/books/new">Add New Book</a></li>
+    </ul>
+  </body>
+</html>
