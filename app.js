@@ -94,6 +94,25 @@ const sequelize = new Sequelize({
 
 const { Model, DataTypes } = Sequelize;
 
+// Define the books array
+let books = [
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    genre: "Classic",
+  },
+  {
+    title: "To Kill a Mockingbird",
+    author: "Harper Lee",
+    genre: "Classic",
+  },
+  {
+    title: "1984",
+    author: "George Orwell",
+    genre: "Science Fiction",
+  },
+];
+
 class Book extends Model {} // Book model
 Book.init({
   title: DataTypes.STRING,
