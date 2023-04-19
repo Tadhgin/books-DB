@@ -29,3 +29,34 @@ const books = [
 Book.bulkCreate(books)
   .then(() => console.log('Books seeded successfully'))
   .catch(err => console.error('Error seeding books:', err));
+
+  const mysql = require('mysql2/promise');
+
+// Create a connection to the MySQL database
+const connection = await mysql.createConnection({
+  host: 'localhost',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database',
+});
+
+// Insert a new user into the "users" table
+const [rows, fields] = await connection.execute(
+  'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+  ['johndoe', 'johndoe@example.com', 'password123']
+);
+
+console.log(rows);
+// Output: OkPacket {
+//   fieldCount: 0,
+//   affectedRows: 1,
+//   insertId: 1,
+//   serverStatus: 2,
+//   warningCount: 0,
+//   message: '',
+//   protocol41: true,
+//   changedRows: 0
+// }
+
+// Close the database connection
+await connection.end();

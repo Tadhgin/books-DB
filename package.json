@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "3": "^2.1.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "connect-session-sequelize": "^7.1.5",
@@ -15,6 +16,7 @@
     "login": "^0.8.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
+    "passport": "^0.6.0",
     "register": "^0.0.0",
     "sequelize": "^6.30.0",
     "sqlite": "^4.1.2",

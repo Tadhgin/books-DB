@@ -1,65 +1,54 @@
-const mysql = require('mysql');
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
-const connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'nodelogin'
-});
-const app = express();
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static'))); // This line is necessary for us to use relative paths and access our resources directory
-// http://localhost:3000/
-app.get('/', function(request, response) {
-	// Render login template
-	response.sendFile(path.join(__dirname + '/login.html'));
-});
-// http://localhost:3000/auth
-app.post('/auth', function(request, response) {
-	// Capture the input fields
-	let username = request.body.username;
-	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
-	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
-				// Redirect to home page
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
-// http://localhost:3000/home
-app.get('/home', function(request, response) {
-	// If the user is loggedin
-	if (request.session.loggedin) {
-		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
-	} else {
-		// Not logged in
-		response.send('Please login to view this page!');
-	}
-	response.end();
-});
-app.listen(3000);
+// Wait for the DOM to load
+document.addEventListener('DOMContentLoaded', function() {
+
+	// Get the form element
+	var form = document.querySelector('form');
+
+	// Attach an event listener to the form submit event
+	form.addEventListener('submit', function(event) {
+
+	  // Prevent the form from submitting
+	  event.preventDefault();
+
+	  // Get the input elements
+	  var usernameInput = document.getElementById('username');
+	  var passwordInput = document.getElementById('password');
+
+	  // Get the input values
+	  var username = usernameInput.value;
+	  var password = passwordInput.value;
+
+	  // Send a POST request to the server to log in the user
+	  fetch('/login', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+		  username: username,
+		  password: password
+		})
+	  })
+	  .then(function(response) {
+		// Handle the response from the server
+		if (response.ok) {
+		  // If the login was successful, redirect the user to the home page
+		  window.location.href = '/';
+		} else {
+		  // If the login failed, display an error message
+		  var errorElement = document.createElement('p');
+		  errorElement.textContent = 'Invalid username or password';
+		  form.prepend(errorElement);
+		}
+	  })
+	  .catch(function(error) {
+		// Handle any errors that may occur
+		console.error('Error:', error);
+		var errorElement = document.createElement('p');
+		errorElement.textContent = 'An error occurred while logging in';
+		form.prepend(errorElement);
+	  });
+
+	});
+
+  });
