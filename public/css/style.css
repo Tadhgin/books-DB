@@ -1,63 +1,100 @@
-/* Style the table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-/* Style the table headers */
-th {
-  background-color: #f1f1f1;
-  text-align: left;
-  padding: 8px;
-}
-
-/* Style the table rows */
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-/* Style the table data */
-td {
-  padding: 8px;
-}
-
-/* Style the book cards */
-.book-card {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Style the book card data */
-.book-title {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.book-author {
-  font-style: italic;
-  margin-bottom: 5px;
-}
-
-.book-pages, .book-release, .book-isbn {
-  margin-bottom: 5px;
-}
-
-/* Style the media queries */
-@media screen and (min-width: 768px) {
-  .book-card {
-    width: calc(50% - 10px);
+/* Global styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
   }
-}
-@media screen and (min-width: 992px) {
-  .book-card {
-    width: calc(33.33% - 10px);
+
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
   }
-}
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .hero {
+    background-image: url('/images/books.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    margin: 0;
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+  }
+
+  .cta {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .cta:hover {
+    background-color: #666;
+  }
+
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .features {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+
+  .feature {
+    flex-basis: 30%;
+  }
+
+  .feature img {
+    width: 100%;
+    max-width: 100px;
+  }
+
+  .small-cta {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    margin-top: 10px;
+  }
+
+  /* Footer styles */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }

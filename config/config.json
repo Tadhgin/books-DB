@@ -1,0 +1,8 @@
+    "development": {
+      "username": "your_dev_username",
+      "password": "your_dev_password",
+      "database": "books_db",
+      "host": "localhost",
+      "dialect": "sqlite",
+      "storage": "./books.sqlite"
+    },

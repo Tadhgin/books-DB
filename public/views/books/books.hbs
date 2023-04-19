@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="/public/css/books.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/books">Books</a></li>
+          {{#if isLoggedIn}}
+          <li><a href="/account">Account</a></li>
+          <li><a href="/wishlist">Wishlist</a></li>
+          <li><a href="/logout">Logout</a></li>
+          {{else}}
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Books</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Number of Pages</th>
+            <th>Year of Release</th>
+            <th>ISBN</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each books}}
+            <tr>
+              <td>{{this.title}}</td>
+              <td>{{this.author}}</td>
+              <td>{{this.num_pages}}</td>
+              <td>{{this.year_release}}</td>
+              <td>{{this.isbn}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      {{#each books}}
+        <div class="book-card">
+          <div>
+            <div class="book-title">{{this.title}}</div>
+            <div class="book-author">{{this.author}}</div>
+            <div class="book-pages">{{this.num_pages}} pages</div>
+            <div class="book-release">Released in {{this.year_release}}</div>
+            <div class="book-isbn">ISBN: {{this.isbn}}</div>
+          </div>
+        </div>
+      {{/each}}
+    </main>
+    <footer>
+      <p>&copy; {{year}} My Library</p>
+    </footer>
+  </body>
+</html>

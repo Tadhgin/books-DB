@@ -1,4 +1,5 @@
-CREATE TABLE books (
+-- Create the books table
+CREATE TABLE IF NOT EXISTS books (
   id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
   author VARCHAR(255) NOT NULL,
@@ -9,7 +10,8 @@ CREATE TABLE books (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE borrowers (
+-- Create the borrowers table
+CREATE TABLE IF NOT EXISTS borrowers (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -17,11 +19,13 @@ CREATE TABLE borrowers (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE book_borrower (
+-- Create the book_borrower join table
+CREATE TABLE IF NOT EXISTS book_borrower (
   book_id INT NOT NULL,
   borrower_id INT NOT NULL,
   borrow_date DATE NOT NULL,
   return_date DATE,
+  PRIMARY KEY (book_id, borrower_id),
   FOREIGN KEY (book_id) REFERENCES books(id),
   FOREIGN KEY (borrower_id) REFERENCES borrowers(id)
 );
