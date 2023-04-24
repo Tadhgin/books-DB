@@ -8,6 +8,7 @@ const logoutRouter = require('./public/js/logout.js');
 const errorHandler = require('./errorHandler');
 const booksRouter = require('./controllers/books');
 const Book = require('./models/book');
+const { sequelize, Book, Author } = require('./models');
 
 require('dotenv').config(); // load environment variables from .env file
 {
@@ -40,6 +41,17 @@ app.set('view engine', 'handlebars');
 app.get('/new-book', (req, res) => {
 res.render('new-book', { pageTitle: 'Add a new book' });
 });
+
+app.post('/books', async (req, res) => {
+    const { title, author, publicationDate } = req.body;
+    const book = await Book.create({ title, author, publicationDate });
+    res.json(book);
+  });
+
+  app.get('/books', async (req, res) => {
+    const books = await Book.findAll();
+    res.json(books);
+  });
 
 // Middleware to parse request bodies
 app.use(express.urlencoded({ extended: false }));
@@ -299,7 +311,12 @@ module.exports = {
 };
 
 // Delete a user by ID
-app.delete('/api/users/:id', (req, res) => {
+app.delete('/users/:id', async (req, res) => {
+    const id = req.params.id;
+    await User.destroy({ where: { id } });
+    res.json({ success: true });
+  });
+
   // Extract the user ID from the request parameters
   const id = parseInt(req.params.id);
   // Find the index of the user with the given ID in the list of users
@@ -314,8 +331,7 @@ app.delete('/api/users/:id', (req, res) => {
     fs.writeFileSync('./users/users.json', JSON.stringify(users));
     // Return the deleted user as a JSON response
     res.json(user);
-  }
-});
+  };
 
 // Handle 404 errors
 app.use((req, res, next) => {
