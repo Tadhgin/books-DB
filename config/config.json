@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "${DB_USERNAME}",
-    "password": "${DB_PASSWORD}",
-    "database": "${DB_DATABASE}",
-    "host": "${DB_HOST}",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE",
+    "host": "DB_HOST",
     "port": 3306,
     "dialect": "mysql",
     "charset": "utf8mb4",
@@ -11,12 +11,12 @@
     "prefix": "",
     "strict": true,
     "engine": "InnoDB"
-  },
+},
   "test": {
-    "username": "${DB_USERNAME}",
-    "password": "${DB_PASSWORD}",
-    "database": "${DB_DATABASE}_test",
-    "host": "${DB_HOST}",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE_test",
+    "host": "DB_HOST",
     "port": 3306,
     "dialect": "mysql",
     "charset": "utf8mb4",
@@ -25,11 +25,12 @@
     "strict": true,
     "engine": "InnoDB"
   },
+
   "production": {
-    "username": "${DB_USERNAME}",
-    "password": "${DB_PASSWORD}",
-    "database": "${DB_DATABASE}_production",
-    "host": "${DB_HOST}",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE_production",
+    "host": "DB_HOST",
     "port": 3306,
     "dialect": "mysql",
     "charset": "utf8mb4",
