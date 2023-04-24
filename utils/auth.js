@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('./models');
+const db = require('../config/migrations/models');
 
 const saltRounds = 10;
 const secretKey = 'your-secret-key-here';

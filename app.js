@@ -1,11 +1,95 @@
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const { Sequelize } = require('sequelize');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const { registerUser, loginUser } = require('./utils/auth');
+const logoutRouter = require('./assets/js/logout');
+const errorHandler = require('./errorHandler');
+const booksRouter = require('./controllers/books');
+const Book = require('./models/book');
 
+require('dotenv').config(); // load environment variables from .env file
+
+//const app = express();
+//const PORT = process.env.PORT || 3000;
+
+// Set up session middleware
+app.use(session({
+secret: 'supersecretkey',
+resave: false,
+saveUninitialized: true,
+cookie: {
+secure: false, // set to true if using HTTPS
+maxAge: 1000 * 60 * 60 * 24 // 1 day
+},
+store: new SequelizeStore({
+db: sequelize, // session store using Sequelize
+}),
+}));
+
+// Set up Handlebars as the view engine
+app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
+app.set('view engine', 'handlebars');
+
+// Define a route for the "new book" page
+app.get('/new-book', (req, res) => {
+res.render('new-book', { pageTitle: 'Add a new book' });
+});
+
+// Middleware to parse request bodies
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Serve static files from the public directory
+app.use(express.static('public'));
+
+// Set up routes
+app.use('/logout', logoutRouter); // logout route
+app.use('/books', booksRouter); // books route
+
+// GET route for home page
+app.get('/', async (req, res) => {
+try {
+const books = await Book.findAll(); // get all books from the database using Sequelize
+res.render('index', { books }); // render the index view with the books data
+} catch (error) {
+errorHandler(error, req, res); // handle errors with the errorHandler middleware function
+}
+});
+
+// GET and POST routes for registration
+app.get('/register', (req, res) => {
+res.render('register', { errors: [] }); // render the registration form with empty errors array
+});
+
+app.post('/register', async (req, res) => {
+try {
+await registerUser(req, res); // register the user using the registerUser function from authController
+res.redirect('/login'); // redirect to login page after successful registration
+} catch (error) {
+res.render('register', { errors: [error.message] }); // render the registration form with error message(s)
+}
+});
+
+// GET and POST routes for login
+app.get('/login', (req, res) => {
+res.render('login', { error: null }); // render the login form with null error message
+});
+
+app.post('/login', async (req, res) => {
+try {
+await loginUser(req, res); // log in the user using the loginUser function from authController
+res.redirect('/books'); // redirect to books page after successful login
+} catch (error) {
+res.render('login', { error: error.message }); // render the login form with error message
+}
+});
 
 // Set up database connection using Sequelize
-{
-    const sequelize = new Sequelize
-}
+//const sequelize = new Sequelize({
 dialect: 'mysql',
-storage; 'books_db', // database file name and location;
+storage; 'books_db', // database file name and location
 
 // Define Book and Author models
 class Book extends Model {}
@@ -15,7 +99,7 @@ author: DataTypes.STRING,
 genre: DataTypes.STRING,
 year: DataTypes.INTEGER,
 }, { sequelize });
- 
+
 class Author extends Model {}
 Author.init({
 name: DataTypes.STRING,
@@ -27,20 +111,20 @@ console.log('Database and tables created successfully!'); // log successful data
 });
 
 // Middleware to handle errors
-function errorHandler(err, req, res, next) {
+//function errorHandler(err, req, res, next) {
 console.error(err.stack);
 res.status(err.statusCode || 500).json({ error: err.message });
-}
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`); // log server start
+  console.log(`App listening on port ${PORT}`); // log server start
 });
 
 // Import necessary modules and instantiate the app
-const express = require('express');
+//const express = require('express');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
+const app = express();
 
 // Authenticate the user and set the session ID
 app.post('/login', async (req, res) => {
@@ -145,9 +229,9 @@ res.json(user);
 });
 
 // Import the Sequelize library and the Book model
-const express = require('express');
+//const express = require('express');
 const router = express.Router();
-const { Book } = require('../models');
+//const { Book } = require('../models');
 
 // Route handler for displaying all books
 router.get('/', async (req, res) => {
@@ -160,40 +244,36 @@ res.sendStatus(500);
 }
 });
 
-// Import the necessary modules
-const express = require('express');
-const fs = require('fs');
-const { Sequelize, DataTypes } = require('sequelize');
+module.exports = router;
 
-// Create an instance of the Express application
-const app = express();
+// Import the Sequelize library and DataTypes
+//const { Sequelize, DataTypes } = require('sequelize');
 
-// Set up the database connection
+// Set up the database connection with additional configuration options
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false
+host: process.env.DB_HOST,
+dialect: 'mysql',
+define: {
+timestamps: false, // Disable timestamps for all models
+},
+logging: false, // Disable logging for all queries
 });
 
-// Define the Book and Author models
-const Book = sequelize.define('Book', {
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  author: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  publicationDate: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  }
+/* Define a Book model with four columns, including a required title column
+/const Book = sequelize.define('Book', {
+title: {
+type: DataTypes.STRING,
+allowNull: false, // Disallow null values for the title column
+},
+author: DataTypes.STRING,
+num_pages: DataTypes.INTEGER,
+isbn: DataTypes.STRING,
 });
+*/
 
-const Author = sequelize.define('Author', {
-  name: DataTypes.STRING,
-});
+// Define an Author model with a single name column
+//const Author = sequelize.define('Author', {
+//ame: DataTypes.STRING,
 
 // Define a "belongsTo" association between Book and Author
 Book.belongsTo(Author);
@@ -203,45 +283,42 @@ sequelize.sync();
 
 // Export the sequelize instance, the Book model, and the Author model
 module.exports = {
-  sequelize,
-  Book,
-  Author,
+sequelize,
+Book,
+Author,
 };
 
 // Delete a user by ID
-app.delete('/users/:id', async (req, res) => {
-    const id = req.params.id;
-    await User.destroy({ where: { id } });
-    res.json({ success: true });
-  });
-
-  // Extract the user ID from the request parameters
-  const id = parseInt(req.params.id);
-  // Find the index of the user with the given ID in the list of users
-  const userIndex = users.findIndex(user => user.id === id);
-  if (userIndex === -1) {
-    // If the user is not found, return an error message
-    res.status(404).json({ error: 'User not found' });
-  } else {
-    // If the user is found, remove it from the list of users and write the updated list back to the users.json file
-    const user = users[userIndex];
-    users.splice(userIndex, 1);
-    fs.writeFileSync('./users/users.json', JSON.stringify(users));
-    // Return the deleted user as a JSON response
-    res.json(user);
-  };
+app.delete('/api/users/:id', (req, res) => {
+// Extract the user ID from the request parameters
+const id = parseInt(req.params.id);
+// Find the index of the user with the given ID in the list of users
+const userIndex = users.findIndex(user => user.id === id);
+if (userIndex === -1) {
+// If the user is not found, return an error message
+res.status(404).json({ error: 'User not found' });
+} else {
+// If the user is found, remove it from the list of users and write the updated list back to the users.json file
+const user = users[userIndex];
+users.splice(userIndex, 1);
+fs.writeFileSync('./users/users.json', JSON.stringify(users));
+// Return the deleted user as a JSON response
+res.json(user);
+}
+});
 
 // Handle 404 errors
 app.use((req, res, next) => {
-  res.status(404).json({ error: 'Not found' });
+res.status(404).json({ error: 'Not found' });
 });
 
 // Handle other errors
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal server error' });
+console.error(err.stack);
+res.status(500).json({ error: 'Internal server error' });
 });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running, on port ${PORT}`));
+app.listen(PORT, () =>
+console.log(`Server running on port ${PORT}`))
