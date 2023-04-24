@@ -10,10 +10,14 @@ const booksRouter = require('./controllers/books');
 const Book = require('./models/book');
 
 require('dotenv').config(); // load environment variables from .env file
+{
+    const app = express();
+    // Code that uses app
+  }
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
+{
+    const PORT = process.env.PORT || 3000;
+}
 // Set up session middleware
 app.use(session({
 secret: 'supersecretkey',
@@ -87,10 +91,11 @@ res.render('login', { error: error.message }); // render the login form with err
 });
 
 // Set up database connection using Sequelize
-const sequelize = new Sequelize({
+{
+    const sequelize = new Sequelize
+}
 dialect: 'mysql',
-storage: 'books_db', // database file name and location
-});
+storage; 'books_db', // database file name and location;
 
 // Define Book and Author models
 class Book extends Model {}
@@ -119,14 +124,13 @@ res.status(err.statusCode || 500).json({ error: err.message });
 
 // Start server
 app.listen(PORT, () => {
-console.log(App listening on port ${PORT}); // log server start
+    console.log(`App listening on port ${PORT}`); // log server start
 });
 
 // Import necessary modules and instantiate the app
 const express = require('express');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
-const app = express();
 
 // Authenticate the user and set the session ID
 app.post('/login', async (req, res) => {
@@ -246,35 +250,39 @@ res.sendStatus(500);
 }
 });
 
-module.exports = router;
-
-// Import the Sequelize library and DataTypes
+// Import the necessary modules
+const express = require('express');
+const fs = require('fs');
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Set up the database connection with additional configuration options
+// Create an instance of the Express application
+const app = express();
+
+// Set up the database connection
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-host: process.env.DB_HOST,
-dialect: 'mysql',
-define: {
-timestamps: false, // Disable timestamps for all models
-},
-logging: false, // Disable logging for all queries
+  host: 'localhost',
+  dialect: 'mysql',
+  logging: false
 });
 
-// Define a Book model with four columns, including a required title column
+// Define the Book and Author models
 const Book = sequelize.define('Book', {
-title: {
-type: DataTypes.STRING,
-allowNull: false, // Disallow null values for the title column
-},
-author: DataTypes.STRING,
-num_pages: DataTypes.INTEGER,
-isbn: DataTypes.STRING,
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  author: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  publicationDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  }
 });
 
-// Define an Author model with a single name column
 const Author = sequelize.define('Author', {
-name: DataTypes.STRING,
+  name: DataTypes.STRING,
 });
 
 // Define a "belongsTo" association between Book and Author
@@ -285,41 +293,41 @@ sequelize.sync();
 
 // Export the sequelize instance, the Book model, and the Author model
 module.exports = {
-sequelize,
-Book,
-Author,
+  sequelize,
+  Book,
+  Author,
 };
 
 // Delete a user by ID
 app.delete('/api/users/:id', (req, res) => {
-// Extract the user ID from the request parameters
-const id = parseInt(req.params.id);
-// Find the index of the user with the given ID in the list of users
-const userIndex = users.findIndex(user => user.id === id);
-if (userIndex === -1) {
-// If the user is not found, return an error message
-res.status(404).json({ error: 'User not found' });
-} else {
-// If the user is found, remove it from the list of users and write the updated list back to the users.json file
-const user = users[userIndex];
-users.splice(userIndex, 1);
-fs.writeFileSync('./users/users.json', JSON.stringify(users));
-// Return the deleted user as a JSON response
-res.json(user);
-}
+  // Extract the user ID from the request parameters
+  const id = parseInt(req.params.id);
+  // Find the index of the user with the given ID in the list of users
+  const userIndex = users.findIndex(user => user.id === id);
+  if (userIndex === -1) {
+    // If the user is not found, return an error message
+    res.status(404).json({ error: 'User not found' });
+  } else {
+    // If the user is found, remove it from the list of users and write the updated list back to the users.json file
+    const user = users[userIndex];
+    users.splice(userIndex, 1);
+    fs.writeFileSync('./users/users.json', JSON.stringify(users));
+    // Return the deleted user as a JSON response
+    res.json(user);
+  }
 });
 
 // Handle 404 errors
 app.use((req, res, next) => {
-res.status(404).json({ error: 'Not found' });
+  res.status(404).json({ error: 'Not found' });
 });
 
 // Handle other errors
 app.use((err, req, res, next) => {
-console.error(err.stack);
-res.status(500).json({ error: 'Internal server error' });
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(Server running on port ${PORT}));
+app.listen(PORT, () => console.log(`Server running, on port ${PORT}`));
