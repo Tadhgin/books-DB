@@ -1,12 +1,10 @@
-// Wait for the DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-
+// Wrap the code in a function that executes when the DOM is loaded
+function initForm() {
   // Get the form element
   var form = document.querySelector('form');
 
   // Attach an event listener to the form submit event
   form.addEventListener('submit', function(event) {
-
     // Prevent the form from submitting
     event.preventDefault();
 
@@ -32,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // If the passwords match, submit the form
       form.submit();
     }
-
   });
+}
 
-});
+// Attach an event listener to the DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', initForm);

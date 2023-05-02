@@ -1,30 +1,19 @@
-// Get the logout button
-const logoutButton = document.querySelector('form[action="/logout"] button[type="submit"]');
-
-// Attach an event listener to the logout button click event
-if (logoutButton) {
-  logoutButton.addEventListener('click', async (event) => {
-    // Prevent the form from submitting
-    event.preventDefault();
-
-    try {
-      // Send a POST request to the server to log out the user
-      const response = await fetch('/logout', {
-        method: 'POST',
-      });
-      if (response.ok) {
-        // If the logout was successful, redirect the user to the home page
-        window.location.href = '/';
-      } else {
-        // If the logout failed, display an error message
-        console.error('Logout failed:', response);
-      }
-    } catch (error) {
-      // Handle any errors that may occur
-      console.error('Error:', error);
-      const errorElement = document.createElement('p');
-      errorElement.textContent = 'An error occurred while logging out';
-      document.body.prepend(errorElement);
-    }
+// Define an async function to handle user logout
+const logout = async () => {
+  // Send a POST request to the logout endpoint
+  const response = await fetch("/api/users/logout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
   });
-}
+
+  // If the response is successful, redirect to the login page
+  if (response.ok) {
+    document.location.replace("/login");
+  } else {
+    // If unsuccessful, display an error message with the response status text
+    alert(response.statusText);
+  }
+};
+
+// Add a click event listener to the logout button
+document.querySelector("#logout").addEventListener("click", logout);

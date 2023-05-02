@@ -1,28 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Register</title>
-  <link rel="stylesheet" href="/css/register.css">
-  <source src="/assets/public/js/register.js"></source>
-</head>
-<body>
-  <h1>Register</h1>
-  {{#if errors}}
-    <ul>
-      {{#each errors}}
-        <li>{{this}}</li>
-      {{/each}}
-    </ul>
-  {{/if}}
-  <form method="post" action="/register">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="newpassword">New Password:</label>
-    <input type="password" id="newpassword" name="newpassword" required><br>
-    <label for="confirm-password">Confirm Password:</label>
-    <input type="password" id="confirm-password" name="confirm-password" required><br>
-    <input type="submit" value="Register">
-  </form>
-</body>
-</html>
+<div class="container mt-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">Register Form</div>
+            <div class="card-body">
+                <form action="/auth/register" method="POST">
+                    <div class="mb-3">
+                        <label for="name-reg" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name-reg" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email-reg" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email-reg" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password-reg" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password-reg" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password-conf-reg" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="password-conf-reg" name="password-confirm">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
