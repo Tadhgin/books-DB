@@ -1,7 +1,7 @@
 // Import the necessary modules and models
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User, Book } = require('./models');
+const User = require("../models").User;
 const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 

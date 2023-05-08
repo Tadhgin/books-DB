@@ -78,7 +78,7 @@ const bookController = {
   }
 };
 
-const bookList = document.querySelector('.book-list');
+//const bookList = document.querySelector('.book-list');
 
 const renderBooks = (books) => {
   bookList.innerHTML = '';
@@ -114,4 +114,4 @@ const renderBooks = (books) => {
   }
 };
 
-export default renderBooks;
+module.exports = renderBooks;

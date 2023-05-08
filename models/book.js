@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const sequelize = require('../config/connection');
 
 class Book extends Model {}
 
@@ -15,18 +15,13 @@ Book.init({
 
 module.exports = Book;
 
-config/database.js
+//config/database.js
 
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'mysql',
-  host: 'localhost'
-});
-
 module.exports = sequelize;
 
-routes/books.js
+//routes/books.js
 
 const express = require('express');
 const router = express.Router();
