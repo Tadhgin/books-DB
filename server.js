@@ -119,35 +119,35 @@ app.post('/login', async (req, res) => {
 app.delete('/api/users/:id', (req, res) => {
   const { id } = req.params;
   // Your code to delete the user with the specified ID from the database using Sequelize
-  });
+});
 
-  // Update a user by ID
-  app.put('/api/users/:id', (req, res) => {
+// Update a user by ID
+app.put('/api/users/:id', (req, res) => {
   const { id } = req.params;
   const { name, email, password } = req.body;
   // Your code to update the user with the specified ID in the database using Sequelize
-  });
+});
 
-  // GET route for retrieving all users
-  app.get('/api/users', (req, res) => {
+// GET route for retrieving all users
+app.get('/api/users', (req, res) => {
   // Your code to retrieve all users from the database using Sequelize
-  });
+});
 
-  // GET route for retrieving a user by ID
-  app.get('/api/users/:id', (req, res) => {
+// GET route for retrieving a user by ID
+app.get('/api/users/:id', (req, res) => {
   const { id } = req.params;
   // Your code to retrieve the user with the specified ID from the database using Sequelize
-  });
+});
 
-  // Error handling middleware
-  app.use((err, req, res, next) => {
+// Error handling middleware
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
-  });
+});
 
-  // Start the server
-  app.listen(3000, () => {
-    console.log(`Server listening on port 3000`);
-  });
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
 
-  module.exports = app; // export the app for testing purposes
+module.exports = app; // export the app for testing purposes
