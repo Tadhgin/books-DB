@@ -22,7 +22,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 });
 
 // Define Book and Author models
-const Book = sequelize.define('Book', {
+/*const Book = sequelize.define('Book', {
   title: {
     type: DataTypes.STRING,
     allowNull: false, // Disallow null values for the title column
@@ -31,13 +31,13 @@ const Book = sequelize.define('Book', {
   genre: DataTypes.STRING,
   year: DataTypes.INTEGER,
 });
-
+*/
 const Author = sequelize.define('Author', {
   name: DataTypes.STRING,
 });
 
 // Define a "belongsTo" association between Book and Author
-Book.belongsTo(Author);
+//Book.belongsTo(Author);
 
 // Synchronize the models with the database
 sequelize.sync().then(() => {
@@ -62,7 +62,7 @@ app.use(session({
 }));
 
 // Set up Handlebars as the view engine
-app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
+//app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
 app.set('view engine', 'handlebars');
 
 // Middleware to parse request bodies
