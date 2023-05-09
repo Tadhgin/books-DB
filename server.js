@@ -146,8 +146,8 @@ app.delete('/api/users/:id', (req, res) => {
   });
 
   // Start the server
-  app.listen(PORT, () => {
-  console.log(Server, listening, on, port, $,{PORT});
+  app.listen(3000, () => {
+    console.log(`Server listening on port 3000`);
   });
 
   module.exports = app; // export the app for testing purposes
